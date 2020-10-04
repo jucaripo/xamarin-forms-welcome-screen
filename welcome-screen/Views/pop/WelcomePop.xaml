@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<popup:PopupPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:popup="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+    x:Class="welcomescreen.Views.pop.WelcomePop">
+    <StackLayout VerticalOptions="FillAndExpand"
+                 HorizontalOptions="FillAndExpand"
+                 BackgroundColor="Blue">
+        <CarouselView >
+           <CarouselView.ItemTemplate>
+             <DataTemplate>
+                 <Image BackgroundColor="Beige"
+                        Source="{Binding pantallas}"
+                        HorizontalOptions="FillAndExpand"
+                        VerticalOptions="FillAndExpand"
+                        />
+             </DataTemplate>
+           </CarouselView.ItemTemplate>
+        </CarouselView>
+        <IndicatorView x:Name="indicatorView"
+                   IndicatorSize="5"
+                   IndicatorColor="Black"
+                   SelectedIndicatorColor="White"
+                   HorizontalOptions="Center" />
+        <Button Text="Cerrar" Clicked="Button_Clicked" />
+    </StackLayout>
+</popup:PopupPage>
