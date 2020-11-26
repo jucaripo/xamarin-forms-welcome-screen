@@ -6,6 +6,10 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.OS;
+using FFImageLoading.Forms.Platform;
+using FFImageLoading;
+
+
 
 namespace welcome_screen.Droid
 {
@@ -19,6 +23,21 @@ namespace welcome_screen.Droid
 
             base.OnCreate(savedInstanceState);
 
+            // SECTOR1 FFImageLoading
+            // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+            var config = new FFImageLoading.Config.Configuration()
+            {
+                VerboseLogging = false,
+                VerbosePerformanceLogging = false,
+                VerboseMemoryCacheLogging = false,
+                VerboseLoadingCancelledLogging = false,
+                Logger = new CustomLogger(),
+            };
+            ImageService.Instance.Initialize(config);
+            CachedImageRenderer.InitImageViewHandler();
+
+            CachedImageRenderer.Init(enableFastRenderer: true);
+
             Rg.Plugins.Popup.Popup.Init(this, savedInstanceState);
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
@@ -31,4 +50,26 @@ namespace welcome_screen.Droid
             base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
         }
     }
+
+    // SECTOR2 FFImageLoading
+    // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    public class CustomLogger : FFImageLoading.Helpers.IMiniLogger
+    {
+        public void Debug(string message)
+        {
+            Console.WriteLine(message);
+        }
+
+        public void Error(string errorMessage)
+        {
+            Console.WriteLine(errorMessage);
+        }
+
+        public void Error(string errorMessage, Exception ex)
+        {
+            Error(errorMessage + System.Environment.NewLine + ex.ToString());
+        }
+    }
+    // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
 }
